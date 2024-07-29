@@ -30,7 +30,6 @@ import com.example.demo.repository.DemoRepository;
 @RequiredArgsConstructor
 @Slf4j
 public class DemoServiceImpl implements DemoService {
-
     @Autowired
     private DemoRepository demoRepository;
 
@@ -54,7 +53,7 @@ public class DemoServiceImpl implements DemoService {
      */
     public ApiResponse save(PostDemoRequest postDemoRequest) {
         try {
-            Demo demo = demoRepository.save(demoMapper.fromAddTestRequest(postDemoRequest));
+            Demo demo = demoRepository.save(demoMapper.fromPostDemoRequest(postDemoRequest));
             return new ApiResponse(200 , "OK", demo);
 
         }catch (Exception e) {
@@ -71,12 +70,12 @@ public class DemoServiceImpl implements DemoService {
      */
     public ApiResponse deleteById(Long id) {
         try {
-            Demo demo = demoRepository.findById(id).orElseThrow(() -> new ApiException(404, "could not find test for id: " + id));
+            Demo demo = demoRepository.findById(id).orElseThrow(() -> new ApiException(404, "Could not find test for id: " + id));
             demoRepository.delete(demo);
-            return new ApiResponse(200, "delete successfully", null);
+            return new ApiResponse(200, "Delete successfully", null);
         }catch (Exception e) {
             log.error(e.getMessage());
-            throw new ApiException(400, " deleting test failed");
+            throw new ApiException(400, " Deleting test failed");
         }
     }
 }

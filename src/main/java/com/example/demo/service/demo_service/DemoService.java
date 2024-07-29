@@ -17,7 +17,6 @@ import com.example.demo.dto.response.ApiResponse;
  * ---------------------------------------------------------
  * 26-07-2024       XuanTTX         Create
  */
-
 public interface DemoService {
     ApiResponse findById(Long id);
     ApiResponse save(PostDemoRequest postDemoRequest);

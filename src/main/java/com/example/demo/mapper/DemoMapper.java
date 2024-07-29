@@ -27,7 +27,7 @@ public class DemoMapper {
      * @param postDemoRequest
      * @return Demo
      */
-    public Demo fromAddTestRequest(PostDemoRequest postDemoRequest) {
+    public Demo fromPostDemoRequest(PostDemoRequest postDemoRequest) {
         return Demo.builder()
                 .name(postDemoRequest.name())
                 .build();

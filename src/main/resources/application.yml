@@ -3,7 +3,6 @@ spring:
     name: demo
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    url: jdbc:sqlserver://DESKTOP-VO84L8E\\SQLEXPRESS:1433;databaseName=demo;encrypt=true;trustServerCertificate=true;
     url: jdbc:sqlserver://localhost:1433;databaseName=demo;encrypt=true;trustServerCertificate=true;
     username: sa
     password: 123

@@ -40,7 +40,6 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity
      */
     @ExceptionHandler(BindException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiResponse> handlerBindException(BindException e) {
         String errorMessage = "Invalid request!";
         if (e.getBindingResult().hasErrors()) {

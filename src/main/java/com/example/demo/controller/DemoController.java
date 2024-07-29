@@ -29,7 +29,6 @@ import com.example.demo.service.demo_service.DemoServiceImpl;
 @RequestMapping(value = "/demo")
 @RequiredArgsConstructor
 public class DemoController {
-    
     @Autowired
     private DemoServiceImpl demoService;
 
