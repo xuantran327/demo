@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.request.PostDemoRequest;
+import com.example.demo.dto.request.UpdateDemoRequest;
 import com.example.demo.entity.Demo;
 
 /**
@@ -31,5 +32,16 @@ public class DemoMapper {
         return Demo.builder()
                 .name(postDemoRequest.name())
                 .build();
+    }
+
+    /**
+     * update name from UpdateDemoRequest to Demo
+     * @param demo
+     * @param updateDemoRequest
+     * @return Demo
+     */
+    public Demo updateDemoFromRequest(Demo demo, UpdateDemoRequest updateDemoRequest) {
+        demo.setName(updateDemoRequest.name());
+        return demo;
     }
 }

@@ -1,7 +1,11 @@
 package com.example.demo.service.demo_service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.example.demo.dto.request.PostDemoRequest;
-import com.example.demo.dto.response.ApiResponse;
+import com.example.demo.dto.request.UpdateDemoRequest;
+import com.example.demo.entity.Demo;
 
 /**
  * DemoService
@@ -18,7 +22,9 @@ import com.example.demo.dto.response.ApiResponse;
  * 26-07-2024       XuanTTX         Create
  */
 public interface DemoService {
-    ApiResponse findById(Long id);
-    ApiResponse save(PostDemoRequest postDemoRequest);
-    ApiResponse deleteById(Long id);
+    List<Demo> findAll();
+    Optional<Demo> findById(Long id);
+    Demo save(PostDemoRequest postDemoRequest);
+    Demo update(Demo demo, UpdateDemoRequest updateDemoRequest);
+    void deleteById(Long id);
 }

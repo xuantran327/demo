@@ -1,13 +1,14 @@
 package com.example.demo.service.demo_service;
 
+import com.example.demo.dto.request.UpdateDemoRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.base_exception.ApiException;
+import java.util.List;
+import java.util.Optional;
+
 import com.example.demo.dto.request.PostDemoRequest;
-import com.example.demo.dto.response.ApiResponse;
 import com.example.demo.entity.Demo;
 import com.example.demo.mapper.DemoMapper;
 import com.example.demo.repository.DemoRepository;
@@ -28,7 +29,6 @@ import com.example.demo.repository.DemoRepository;
  */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class DemoServiceImpl implements DemoService {
     @Autowired
     private DemoRepository demoRepository;
@@ -36,46 +36,48 @@ public class DemoServiceImpl implements DemoService {
     @Autowired
     private DemoMapper demoMapper;
 
-    /**
-     * get demo from database
-     * @param id
-     * @return ApiResponse
+    /** get list of demo from database
+     * @return List<Demo>
      */
-    public ApiResponse findById(Long id) {
-        Demo test = demoRepository.findById(id).orElseThrow(() -> new ApiException(404, "Could not find demo for id: " + id));
-        return new ApiResponse(200 , "OK", test);
+    @Override
+    public List<Demo> findAll() {
+        return demoRepository.findAll();
     }
 
-    /**
-     * save demo to database
+    /** get demo by id from database
+     * @param id
+     * @return Optional<Demo>
+     */
+    @Override
+    public Optional<Demo> findById(Long id) {
+        return demoRepository.findById(id);
+    }
+
+    /** save demo to database
      * @param postDemoRequest
-     * @return ApiException
+     * @return Demo
      */
-    public ApiResponse save(PostDemoRequest postDemoRequest) {
-        try {
-            Demo demo = demoRepository.save(demoMapper.fromPostDemoRequest(postDemoRequest));
-            return new ApiResponse(200 , "OK", demo);
-
-        }catch (Exception e) {
-            log.error(e.getMessage());
-            throw new ApiException(400, "Could not save demo: " + postDemoRequest.toString() + " to database");
-
-        }
+    @Override
+    public Demo save(PostDemoRequest postDemoRequest) {
+        return demoRepository.save(demoMapper.fromPostDemoRequest(postDemoRequest));
     }
 
     /**
-     * delete demo
-     * @param id
-     * @return ApiException
+     * update demo to database
+     * @param demo
+     * @param updateDemoRequest
+     * @return
      */
-    public ApiResponse deleteById(Long id) {
-        try {
-            Demo demo = demoRepository.findById(id).orElseThrow(() -> new ApiException(404, "Could not find test for id: " + id));
-            demoRepository.delete(demo);
-            return new ApiResponse(200, "Delete successfully", null);
-        }catch (Exception e) {
-            log.error(e.getMessage());
-            throw new ApiException(400, " Deleting test failed");
-        }
+    @Override
+    public Demo update(Demo demo, UpdateDemoRequest updateDemoRequest) {
+        return demoRepository.save(demoMapper.updateDemoFromRequest(demo, updateDemoRequest));
+    }
+
+    /** delete demo from database
+     * @param id
+     */
+    @Override
+    public void deleteById(Long id) {
+        demoRepository.deleteById(id);
     }
 }
